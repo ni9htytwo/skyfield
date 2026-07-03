@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyField 天域场 · 新能源场站空间智能平台</title>
+<meta name="description" content="SkyField天域场——面向风电、光伏与储能场站的全生命周期空间智能平台。从选址到运维，一张图管全程。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F5F0;
+  --paper-2:#EBEFE7;
+  --ink:#0D2B22;
+  --ink-2:#123A2E;
+  --moss:#2F5D4C;
+  --gold:#DE9A2B;
+  --gold-soft:#F0C878;
+  --mint:#7FD6A4;
+  --contour:#C6D2C6;
+  --contour-dark:#1E4437;
+  --text:#22352E;
+  --text-dim:#5C6F66;
+  --text-inv:#E9EFE9;
+  --text-inv-dim:#9DB3A7;
+  --serif:'Noto Serif SC',serif;
+  --sans:'Noto Sans SC',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --maxw:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--text);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(243,245,240,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--contour)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-mark{width:34px;height:34px;flex:none}
+.logo-txt{font-family:var(--serif);font-weight:900;font-size:19px;color:var(--ink);letter-spacing:.5px}
+.logo-txt small{display:block;font-family:var(--mono);font-weight:500;font-size:9.5px;letter-spacing:2.5px;color:var(--text-dim);margin-top:-2px}
+.nav-links{display:flex;gap:34px;align-items:center}
+.nav-links a{font-size:14.5px;font-weight:500;color:var(--text);padding:4px 0;border-bottom:2px solid transparent;transition:.2s}
+.nav-links a:hover{border-color:var(--gold);color:var(--ink)}
+.btn{display:inline-block;font-weight:700;font-size:14.5px;padding:11px 26px;border-radius:3px;transition:.2s;border:1.5px solid transparent;cursor:pointer}
+.btn-solid{background:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:var(--moss)}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold:hover{background:var(--gold-soft)}
+.btn-line{border-color:var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-line-inv{border-color:var(--text-inv-dim);color:var(--text-inv)}
+.btn-line-inv:hover{border-color:var(--gold);color:var(--gold)}
+.nav .btn{padding:9px 20px}
+.nav-links a.btn-solid{color:var(--paper)}
+.nav-links a.btn-solid:hover{color:var(--paper)}
+.nav-toggle{display:none}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--contour)}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.hero-bg::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(102deg,var(--paper) 0%,var(--paper) 26%,rgba(243,245,240,.88) 40%,rgba(243,245,240,.42) 58%,rgba(243,245,240,.1) 74%,rgba(243,245,240,0) 88%),
+  linear-gradient(180deg,rgba(243,245,240,.08) 0%,rgba(243,245,240,.45) 100%)}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:88px 0 78px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:3px;color:var(--moss);font-weight:600;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.eyebrow::before{content:"";width:34px;height:1.5px;background:var(--gold)}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(38px,4.6vw,58px);line-height:1.22;color:var(--ink);letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--moss);position:relative;white-space:nowrap}
+h1 em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:9px;background:var(--gold);opacity:.32;z-index:-1}
+.hero-sub{margin:26px 0 34px;font-size:17.5px;color:var(--text-dim);max-width:520px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:58px;border-top:1px solid var(--contour)}
+.hstat{padding:20px 18px 0 0}
+.hstat+.hstat{border-left:1px solid var(--contour);padding-left:20px}
+.hstat b{font-family:var(--mono);font-weight:600;font-size:25px;color:var(--ink);display:block;line-height:1.2}
+.hstat b i{font-style:normal;color:var(--gold);font-size:16px}
+.hstat span{font-size:12.5px;color:var(--text-dim);line-height:1.5;display:block;margin-top:5px}
+
+/* hero map */
+.heromap{position:relative;background:var(--paper-2);border:1px solid var(--contour);border-radius:6px;overflow:hidden;box-shadow:0 24px 60px -30px rgba(13,43,34,.35)}
+.heromap svg{width:100%;height:auto}
+.contour{fill:none;stroke:#A9BCA9;stroke-width:1.1;stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 3.2s ease forwards}
+.contour.c2{animation-delay:.25s;stroke:#98AF9C}
+.contour.c3{animation-delay:.5s;stroke:#8AA48F}
+.contour.c4{animation-delay:.75s;stroke:#7C9A83}
+.contour.c5{animation-delay:1s;stroke:#6E9078}
+@keyframes draw{to{stroke-dashoffset:0}}
+.gridline{stroke:#0D2B22;stroke-opacity:.06;stroke-width:1}
+.turbine{opacity:0;animation:pop .5s ease forwards}
+.turbine.t1{animation-delay:1.5s}.turbine.t2{animation-delay:1.75s}.turbine.t3{animation-delay:2s}.turbine.t4{animation-delay:2.25s}.turbine.t5{animation-delay:2.5s}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.gridpath{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:6 5;stroke-dashoffset:600;animation:draw2 2s ease 2.4s forwards;opacity:0}
+@keyframes draw2{from{opacity:1;stroke-dashoffset:600}to{opacity:1;stroke-dashoffset:0}}
+.map-coord{position:absolute;font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:1px}
+.mc-tl{top:10px;left:14px}.mc-br{bottom:10px;right:14px}
+.scorecard{position:absolute;right:16px;top:16px;background:rgba(13,43,34,.94);color:var(--text-inv);border-radius:5px;padding:14px 16px;font-family:var(--mono);font-size:11.5px;line-height:2;min-width:196px;opacity:0;animation:pop .6s ease 2.9s forwards;box-shadow:0 12px 30px -10px rgba(0,0,0,.4)}
+.scorecard h5{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:2px;color:var(--gold);margin-bottom:6px}
+.scorecard .row{display:flex;justify-content:space-between;gap:18px}
+.scorecard .row b{color:#fff;font-weight:600}
+.scorecard .ok{color:#7FD6A4}
+.map-tag{position:absolute;left:16px;bottom:14px;background:var(--paper);border:1px solid var(--contour);border-radius:3px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;color:var(--moss);padding:5px 10px}
+
+/* ---------- SECTION BASE ---------- */
+section{padding:96px 0}
+.sec-head{max-width:720px;margin-bottom:56px}
+.sec-eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:3px;font-weight:600;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-eyebrow::before{content:"";width:26px;height:1.5px;background:var(--gold)}
+h2{font-family:var(--serif);font-weight:900;font-size:clamp(28px,3.2vw,40px);line-height:1.3;color:var(--ink)}
+.sec-head p{margin-top:18px;color:var(--text-dim);font-size:16.5px}
+.dark{background:var(--ink);color:var(--text-inv)}
+.dark h2{color:#fff}
+.dark .sec-head p{color:var(--text-inv-dim)}
+
+/* terrain divider */
+.divider{height:64px;background:var(--paper);overflow:hidden;line-height:0}
+.divider svg{width:100%;height:64px}
+
+/* ---------- POSITIONING (layers) ---------- */
+.pos-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.layers{display:flex;flex-direction:column;gap:10px}
+.layer{border:1px solid var(--contour);border-radius:5px;padding:18px 22px;background:#fff;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.layer h4{font-size:15.5px;font-weight:700;color:var(--text)}
+.layer span{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:var(--text-dim);white-space:nowrap}
+.layer p{font-size:13px;color:var(--text-dim);margin-top:3px;line-height:1.6}
+.layer.hot{background:var(--ink);border-color:var(--ink);box-shadow:0 16px 40px -20px rgba(13,43,34,.5);transform:scale(1.03)}
+.layer.hot h4{color:#fff}
+.layer.hot p{color:var(--text-inv-dim)}
+.layer.hot span{color:var(--gold)}
+.pos-copy h3{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--ink);margin-bottom:14px}
+.pos-copy p{color:var(--text-dim);margin-bottom:16px}
+.pos-copy .pt{display:flex;gap:12px;margin-top:20px}
+.pos-copy .pt svg{flex:none;margin-top:5px}
+.pos-copy .pt b{color:var(--ink)}
+.pos-copy .pt p{margin:2px 0 0;font-size:14.5px}
+
+/* ---------- MODULES ---------- */
+.mods{background:var(--paper-2)}
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.mod{background:#fff;border:1px solid var(--contour);border-radius:6px;padding:34px 34px 30px;position:relative;display:flex;flex-direction:column;transition:.25s}
+.mod:hover{transform:translateY(-4px);box-shadow:0 22px 50px -26px rgba(13,43,34,.35);border-color:var(--moss)}
+.mod-phase{font-family:var(--mono);font-size:10.5px;letter-spacing:2.5px;font-weight:600;color:var(--moss);background:var(--paper-2);border:1px solid var(--contour);border-radius:99px;padding:4px 13px;display:inline-flex;align-self:flex-start;margin-bottom:20px}
+.mod.first .mod-phase{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+.mod h3{font-family:var(--serif);font-weight:900;font-size:23px;color:var(--ink)}
+.mod h3 small{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:1.5px;color:var(--text-dim);display:block;margin-top:4px}
+.mod-desc{font-size:14.5px;color:var(--text-dim);margin:14px 0 18px}
+.mod ul{list-style:none;margin-bottom:22px}
+.mod li{font-size:14px;padding:7px 0 7px 22px;position:relative;border-bottom:1px dashed var(--contour)}
+.mod li:last-child{border-bottom:0}
+.mod li::before{content:"";position:absolute;left:2px;top:15px;width:7px;height:7px;border:1.5px solid var(--gold);border-radius:50%}
+.mod-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--contour);padding-top:16px}
+.mod-foot .price{font-family:var(--mono);font-size:12px;color:var(--text-dim)}
+.mod-foot .price b{color:var(--ink);font-size:14px;font-weight:600}
+.mod-foot a{font-size:13.5px;font-weight:700;color:var(--moss)}
+.mod-foot a:hover{color:var(--gold)}
+.flag{position:absolute;top:30px;right:30px;font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:600}
+.flow-note{margin-top:34px;background:#fff;border:1px solid var(--contour);border-left:4px solid var(--gold);border-radius:4px;padding:20px 26px;font-size:14.5px;color:var(--text-dim)}
+.flow-note b{color:var(--ink)}
+
+/* ---------- TECH STACK (architecture redesign) ---------- */
+.tech{position:relative}
+.tech::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,transparent 0 79px,rgba(255,255,255,.028) 79px 80px),
+  repeating-linear-gradient(90deg,transparent 0 79px,rgba(255,255,255,.028) 79px 80px);pointer-events:none}
+.tech .wrap{position:relative}
+.tech .sec-head{margin-bottom:20px}
+.read-hint{font-family:var(--mono);font-size:11.5px;letter-spacing:2px;color:var(--mint);opacity:.8;margin-bottom:44px;display:flex;align-items:center;gap:10px}
+.read-hint svg{flex:none}
+
+.arch{max-width:880px;margin:0 auto;position:relative}
+
+/* vertical flow pipes with travelling dots */
+.pipes{position:absolute;inset:0;pointer-events:none;z-index:0}
+.pipe{position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(127,214,164,.22) 12%,rgba(127,214,164,.22) 88%,transparent)}
+.pipe.p1{left:18%}.pipe.p2{left:50%}.pipe.p3{left:82%}
+.dot{position:absolute;left:-2.5px;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px 2px rgba(222,154,43,.55);animation:rise 5.5s linear infinite;opacity:0}
+.pipe.p1 .dot{animation-delay:0s}
+.pipe.p2 .dot{animation-delay:1.8s;animation-duration:6.5s}
+.pipe.p3 .dot{animation-delay:3.4s;animation-duration:6s}
+.pipe .dot.d2{animation-delay:2.7s}
+.pipe.p2 .dot.d2{animation-delay:4.9s}
+.pipe.p3 .dot.d2{animation-delay:.9s}
+@keyframes rise{0%{bottom:2%;opacity:0}8%{opacity:1}88%{opacity:1}100%{bottom:97%;opacity:0}}
+
+/* power-on entrance */
+.pw{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.pw.on{opacity:1;transform:none}
+
+/* consumers (top) */
+.consumers{position:relative;z-index:1;text-align:center;margin-bottom:14px}
+.clabel{font-family:var(--mono);font-size:10.5px;letter-spacing:2.5px;color:var(--text-inv-dim);margin-bottom:12px}
+.cchips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.cchip{font-size:13.5px;font-weight:700;color:var(--ink);background:var(--gold);border-radius:3px;padding:8px 18px;letter-spacing:.5px}
+.cchip.ghost{background:transparent;color:var(--text-inv-dim);border:1px dashed var(--contour-dark);font-weight:500}
+.cchip.ghost b{color:var(--mint);font-weight:700}
+
+/* connector arrows */
+.conn{position:relative;z-index:1;height:38px;display:flex;justify-content:center;align-items:center}
+.conn svg{height:38px}
+.conn path{stroke:var(--mint);stroke-width:1.4;fill:none;opacity:.6}
+
+/* sovereign frame */
+.frame{position:relative;z-index:1;border:1.5px solid var(--contour-dark);border-radius:8px;padding:54px 26px 26px;background:rgba(13,43,34,.55);backdrop-filter:blur(2px)}
+.frame::before,.frame::after{content:"";position:absolute;width:14px;height:14px;border:1.5px solid var(--gold)}
+.frame::before{top:-1.5px;left:-1.5px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.frame::after{bottom:-1.5px;right:-1.5px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+.frame-label{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--ink);border:1.5px solid var(--gold);border-radius:99px;padding:5px 22px;font-family:var(--mono);font-size:11.5px;letter-spacing:2px;color:var(--gold);font-weight:600;white-space:nowrap}
+.frame-note{position:absolute;top:22px;left:0;right:0;text-align:center;font-size:12.5px;color:var(--text-inv-dim)}
+.frame-edge{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px dashed var(--contour-dark)}
+.echip{font-family:var(--mono);font-size:11px;color:var(--text-inv-dim);border:1px solid var(--contour-dark);border-radius:3px;padding:3px 10px;background:rgba(255,255,255,.03)}
+.echip.hl{color:var(--gold);border-color:rgba(222,154,43,.5)}
+
+/* layer rows */
+.stack{display:flex;flex-direction:column;gap:12px}
+.lrow{position:relative;display:grid;grid-template-columns:64px 250px 1fr;gap:20px;align-items:center;background:var(--ink-2);border:1px solid var(--contour-dark);border-radius:6px;padding:20px 24px;transition:border-color .25s,opacity .3s,transform .25s,box-shadow .25s;cursor:default}
+.stack:hover .lrow{opacity:.45}
+.stack .lrow:hover{opacity:1;border-color:var(--gold);transform:translateX(6px);box-shadow:0 10px 34px -16px rgba(222,154,43,.35)}
+.lmark{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:var(--mint);font-weight:600;display:flex;flex-direction:column;gap:3px}
+.lmark b{font-size:17px;color:var(--gold);font-weight:600}
+.lname{display:flex;align-items:center;gap:14px}
+.lico{width:40px;height:40px;flex:none;border:1px solid var(--contour-dark);border-radius:5px;display:flex;align-items:center;justify-content:center;background:rgba(222,154,43,.08)}
+.lname h4{font-size:16.5px;font-weight:700;color:#fff;line-height:1.35}
+.lname h4 small{display:block;font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:1.5px;color:var(--text-inv-dim);margin-top:2px}
+.ldesc{font-size:13.5px;color:var(--text-inv-dim);line-height:1.65}
+.lchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.lchip{font-family:var(--mono);font-size:10.5px;color:var(--text-inv);border:1px solid var(--contour-dark);border-radius:3px;padding:2px 8px;background:rgba(255,255,255,.04)}
+
+/* fusion core (signature) */
+.core{position:relative;border:1.5px solid rgba(222,154,43,.55);border-radius:6px;background:linear-gradient(120deg,rgba(222,154,43,.10),rgba(127,214,164,.07) 55%,rgba(222,154,43,.10));padding:26px 24px 24px;transition:opacity .3s,transform .25s,box-shadow .25s;overflow:hidden}
+.core::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.09) 48%,transparent 62%);transform:translateX(-120%);animation:sheen 6s ease-in-out infinite}
+@keyframes sheen{0%,60%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+.stack:hover .core{opacity:.45}
+.stack .core:hover{opacity:1;transform:translateX(6px);box-shadow:0 14px 44px -16px rgba(222,154,43,.5)}
+.core-tag{position:absolute;top:14px;left:24px;font-family:var(--mono);font-size:10.5px;letter-spacing:2.5px;color:var(--gold);font-weight:600}
+.core-tag b{font-size:15px;margin-right:8px}
+.core-grid{display:grid;grid-template-columns:1fr 128px 1fr;align-items:center;gap:0;margin-top:26px;position:relative}
+.core-half{padding:16px 18px;border:1px solid var(--contour-dark);background:rgba(13,43,34,.6);border-radius:5px}
+.core-half.l{border-right:0;border-radius:5px 0 0 5px;text-align:right}
+.core-half.r{border-left:0;border-radius:0 5px 5px 0}
+.core-half h4{font-size:16.5px;font-weight:700;color:#fff}
+.core-half h4 small{display:block;font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:1.5px;color:var(--text-inv-dim);margin-top:2px}
+.core-half p{font-size:12.5px;color:var(--text-inv-dim);margin-top:8px;line-height:1.6}
+.emblem{position:relative;width:128px;height:128px;display:flex;align-items:center;justify-content:center;z-index:2}
+.emblem .ring{position:absolute;inset:6px;border:1.5px dashed var(--gold);border-radius:50%;animation:spin 22s linear infinite;opacity:.85}
+.emblem .ring2{position:absolute;inset:18px;border:1px solid rgba(127,214,164,.5);border-radius:50%;animation:spin 34s linear infinite reverse}
+.emblem .disc{position:absolute;inset:28px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#1B4A3A,#0D2B22 70%);border:1px solid var(--contour-dark);display:flex;align-items:center;justify-content:center;animation:corepulse 3.2s ease-in-out infinite}
+.emblem .x{font-family:var(--serif);font-weight:900;font-size:34px;color:var(--gold);line-height:1;text-shadow:0 0 18px rgba(222,154,43,.6)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes corepulse{0%,100%{box-shadow:0 0 0 0 rgba(222,154,43,.35)}50%{box-shadow:0 0 0 14px rgba(222,154,43,0)}}
+.core-foot{margin-top:16px;font-size:12.5px;color:var(--text-inv-dim);text-align:center}
+.core-foot b{color:var(--gold-soft)}
+
+/* data sources (bottom) */
+.sources{position:relative;z-index:1;text-align:center;margin-top:14px}
+.schips{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.schip{font-family:var(--mono);font-size:11.5px;color:var(--text-inv);border:1px solid var(--contour-dark);border-radius:3px;padding:6px 14px;background:rgba(255,255,255,.03)}
+.schip small{color:var(--text-inv-dim);margin-left:6px;font-size:10px}
+
+/* takeaways */
+.takeaway{max-width:880px;margin:52px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tk{border-left:2px solid var(--gold);padding:4px 0 4px 18px}
+.tk b{color:#fff;font-size:14.5px;display:block}
+.tk span{font-size:12.5px;color:var(--text-inv-dim);line-height:1.6;display:block;margin-top:4px}
+
+@media (max-width:900px){
+  .lrow{grid-template-columns:1fr;gap:12px;padding:20px}
+  .lmark{flex-direction:row;align-items:baseline;gap:10px}
+  .core-grid{grid-template-columns:1fr;gap:0}
+  .core-half.l,.core-half.r{border:1px solid var(--contour-dark);border-radius:5px;text-align:left}
+  .emblem{margin:14px auto;width:104px;height:104px}
+  .pipes{display:none}
+  .stack:hover .lrow,.stack:hover .core{opacity:1}
+  .stack .lrow:hover,.stack .core:hover{transform:none}
+  .takeaway{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .dot,.core::before,.emblem .ring,.emblem .ring2,.emblem .disc{animation:none}
+  .dot{opacity:0}
+  .pw{opacity:1;transform:none;transition:none}
+}
+
+/* ---------- COMPARE ---------- */
+.cmp-scroll{overflow-x:auto;border:1px solid var(--contour);border-radius:6px;background:#fff}
+table{width:100%;border-collapse:collapse;min-width:820px}
+th,td{padding:16px 20px;text-align:left;font-size:14px;border-bottom:1px solid var(--contour);vertical-align:top}
+thead th{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;font-weight:600;color:var(--text-dim);background:var(--paper-2);text-transform:uppercase}
+thead th.me{background:var(--ink);color:var(--gold)}
+tbody th{font-weight:700;color:var(--ink);font-size:14.5px;width:170px}
+td.me{background:rgba(222,154,43,.09);font-weight:500;color:var(--ink)}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+.yes{color:var(--moss);font-weight:700}
+.no{color:#B0533A}
+.cmp-note{margin-top:18px;font-size:13px;color:var(--text-dim);font-family:var(--mono)}
+
+/* ---------- GLOBAL / BRI ---------- */
+.bri{position:relative;background:var(--paper-2);overflow:hidden}
+.bri::before{content:"";position:absolute;inset:0;z-index:0;
+  background:url("field-turbine.jpg") center 30%/cover no-repeat}
+.bri::after{content:"";position:absolute;inset:0;z-index:0;background:
+  linear-gradient(96deg,var(--paper-2) 0%,var(--paper-2) 30%,rgba(235,239,231,.9) 46%,rgba(235,239,231,.55) 64%,rgba(235,239,231,.28) 82%,rgba(235,239,231,.12) 100%),
+  linear-gradient(180deg,rgba(235,239,231,.35),rgba(235,239,231,.55))}
+.bri .wrap{position:relative;z-index:1}
+.bri-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.bri-points{display:flex;flex-direction:column;gap:22px;margin-top:8px}
+.bp{display:flex;gap:16px}
+.bp .n{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--gold);border:1.5px solid var(--gold);border-radius:50%;width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.bp b{color:var(--ink);font-size:16px}
+.bp p{font-size:14.5px;color:var(--text-dim);margin-top:3px}
+.route-map{background:var(--ink);border-radius:6px;padding:8px;box-shadow:0 24px 60px -30px rgba(13,43,34,.5)}
+.route-map svg{width:100%;height:auto}
+.rm-label{font-family:var(--mono);font-size:9.5px;fill:var(--text-inv-dim);letter-spacing:1px}
+.rm-city{fill:var(--gold)}
+.rm-line{fill:none;stroke:var(--gold);stroke-width:1.5;stroke-dasharray:4 4;opacity:.75}
+.rm-land{fill:#16382D;stroke:#1E4437;stroke-width:1}
+
+/* ---------- CTA ---------- */
+.cta{background:var(--ink);position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:0;z-index:0;
+  background:url("polder-aerial.png") center 40%/cover no-repeat}
+.cta::after{content:"";position:absolute;inset:0;z-index:0;background:
+  linear-gradient(180deg,rgba(13,43,34,.82) 0%,rgba(13,43,34,.7) 45%,rgba(13,43,34,.88) 100%),
+  radial-gradient(120% 90% at 50% 50%,rgba(13,43,34,.35),rgba(8,32,26,.85))}
+.cta .contour-bg{position:absolute;inset:0;z-index:1;opacity:.15;pointer-events:none}
+.cta .wrap{position:relative;z-index:2;text-align:center;max-width:760px}
+.cta h2{color:#fff;margin-bottom:18px}
+.cta p{color:var(--text-inv-dim);font-size:17px;margin-bottom:34px}
+.cta .mono-line{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--gold);margin-top:30px}
+
+/* ---------- FOOTER ---------- */
+footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-size:14px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:44px;margin-bottom:44px}
+.foot-grid h5{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:16px;font-weight:600}
+.foot-grid a{display:block;padding:4px 0;color:var(--text-inv-dim)}
+.foot-grid a:hover{color:#fff}
+.foot-brand p{margin-top:14px;font-size:13px;line-height:1.8;max-width:300px}
+.foot-bottom{border-top:1px solid #123A2E;padding-top:24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:1px}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .contour,.turbine,.gridpath,.scorecard{animation:none;opacity:1;stroke-dashoffset:0}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1020px){
+  .hero-in,.pos-grid,.bri-grid{grid-template-columns:1fr;gap:44px}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .hstat{border-left:0!important;padding-left:0!important}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .hero-bg::after{background:
+    linear-gradient(180deg,var(--paper) 0%,var(--paper) 22%,rgba(243,245,240,.9) 38%,rgba(243,245,240,.55) 55%,rgba(243,245,240,.2) 72%,rgba(243,245,240,.65) 100%)}
+}
+@media (max-width:720px){
+  .nav-links{display:none}
+  .mod-grid{grid-template-columns:1fr}
+  section{padding:68px 0}
+  .wrap{padding:0 22px}
+  .hero-in{padding:56px 0 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#top" aria-label="SkyField 天域场首页">
+      <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <rect x="1" y="1" width="38" height="38" rx="4" fill="#0D2B22"/>
+        <path d="M6 28 C12 24 14 18 20 16 C26 14 28 10 34 8" fill="none" stroke="#DE9A2B" stroke-width="2"/>
+        <path d="M6 33 C13 30 16 24 22 22 C28 20 30 16 34 14" fill="none" stroke="#7FD6A4" stroke-width="1.4" opacity=".7"/>
+        <circle cx="20" cy="16" r="2.6" fill="#DE9A2B"/>
+      </svg>
+      <span class="logo-txt">天域场<small>SKYFIELD</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#position">空间层定位</a>
+      <a href="#modules">产品模块</a>
+      <a href="#tech">技术平台</a>
+      <a href="#compare">对比</a>
+      <a href="#global">海外交付</a>
+      <a class="btn btn-solid" href="#demo">预约选址演示</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="hero-bg.jpg" alt="" loading="eager">
+  </div>
+  <div class="wrap hero-in">
+    <div>
+      <div class="eyebrow">天域世界 SkyWorld · 新能源空间智能</div>
+      <h1>场站的空间底座，<br>从选址到运维<br><em>一张图管全程</em></h1>
+      <p class="hero-sub">SkyField 天域场——面向风电、光伏与储能场站的全生命周期空间智能平台。GIS 与游戏引擎深度融合，私有化部署，国产 CPU 全架构兼容。</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#demo">用真实场站数据预约演示</a>
+        <a class="btn btn-line" href="#modules">查看产品模块</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><b>10<i>年</i></b><span>GIS + 游戏引擎<br>工程化积累</span></div>
+        <div class="hstat"><b>100<i>+</i></b><span>机构基于天域底座<br>完成项目交付</span></div>
+        <div class="hstat"><b>30<i>天</i></b><span>单场站选址分析<br>出具完整报告</span></div>
+        <div class="hstat"><b>4<i>架构</i></b><span>ARM / MIPS / SW-64 / x86<br>国产 CPU 全兼容</span></div>
+      </div>
+    </div>
+
+    <div class="heromap" role="img" aria-label="风电场选址分析地形图示意：等高线地形上标注五台风机位与电网接入路径，附AI选址评分卡">
+      <svg viewBox="0 0 560 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- graticule -->
+        <g>
+          <line class="gridline" x1="140" y1="0" x2="140" y2="480"/>
+          <line class="gridline" x1="280" y1="0" x2="280" y2="480"/>
+          <line class="gridline" x1="420" y1="0" x2="420" y2="480"/>
+          <line class="gridline" x1="0" y1="120" x2="560" y2="120"/>
+          <line class="gridline" x1="0" y1="240" x2="560" y2="240"/>
+          <line class="gridline" x1="0" y1="360" x2="560" y2="360"/>
+        </g>
+        <!-- contours -->
+        <path class="contour"    d="M-20,430 C80,400 120,440 200,410 C300,375 330,420 440,390 C510,370 540,395 580,380"/>
+        <path class="contour c2" d="M-20,380 C70,340 140,385 220,350 C310,312 360,360 460,325 C520,305 550,330 580,318"/>
+        <path class="contour c3" d="M-20,320 C60,275 150,320 240,282 C320,250 380,295 470,258 C525,236 555,258 580,250"/>
+        <path class="contour c4" d="M-10,255 C70,210 170,250 255,212 C330,180 400,225 480,190 C530,168 558,188 580,180"/>
+        <path class="contour c5" d="M0,190 C80,148 190,182 270,148 C345,118 420,158 495,124 C535,106 560,120 580,112"/>
+        <path class="contour c5" d="M60,120 C150,86 240,110 320,82 C390,58 460,88 530,62"/>
+        <path class="contour c4" d="M150,72 C230,48 320,64 400,42 C450,28 500,44 545,30"/>
+        <!-- ridge peak rings -->
+        <ellipse class="contour c5" cx="300" cy="118" rx="70" ry="26"/>
+        <ellipse class="contour c5" cx="300" cy="118" rx="38" ry="13"/>
+        <!-- grid connection path -->
+        <path class="gridpath" d="M120,340 L210,300 L305,262 L398,218 L470,180"/>
+        <!-- turbines -->
+        <g class="turbine t1" transform="translate(120,340)"><line x1="0" y1="0" x2="0" y2="-22" stroke="#0D2B22" stroke-width="2.4"/><g stroke="#0D2B22" stroke-width="2.2" stroke-linecap="round"><line x1="0" y1="-22" x2="0" y2="-36"/><line x1="0" y1="-22" x2="12" y2="-15"/><line x1="0" y1="-22" x2="-12" y2="-15"/></g><circle cx="0" cy="4" r="3.4" fill="#DE9A2B"/><text x="10" y="10" font-family="IBM Plex Mono" font-size="10" fill="#5C6F66">WT-01</text></g>
+        <g class="turbine t2" transform="translate(210,300)"><line x1="0" y1="0" x2="0" y2="-22" stroke="#0D2B22" stroke-width="2.4"/><g stroke="#0D2B22" stroke-width="2.2" stroke-linecap="round"><line x1="0" y1="-22" x2="0" y2="-36"/><line x1="0" y1="-22" x2="12" y2="-15"/><line x1="0" y1="-22" x2="-12" y2="-15"/></g><circle cx="0" cy="4" r="3.4" fill="#DE9A2B"/><text x="10" y="10" font-family="IBM Plex Mono" font-size="10" fill="#5C6F66">WT-02</text></g>
+        <g class="turbine t3" transform="translate(305,262)"><line x1="0" y1="0" x2="0" y2="-22" stroke="#0D2B22" stroke-width="2.4"/><g stroke="#0D2B22" stroke-width="2.2" stroke-linecap="round"><line x1="0" y1="-22" x2="0" y2="-36"/><line x1="0" y1="-22" x2="12" y2="-15"/><line x1="0" y1="-22" x2="-12" y2="-15"/></g><circle cx="0" cy="4" r="3.4" fill="#DE9A2B"/><text x="10" y="10" font-family="IBM Plex Mono" font-size="10" fill="#5C6F66">WT-03</text></g>
+        <g class="turbine t4" transform="translate(398,218)"><line x1="0" y1="0" x2="0" y2="-22" stroke="#0D2B22" stroke-width="2.4"/><g stroke="#0D2B22" stroke-width="2.2" stroke-linecap="round"><line x1="0" y1="-22" x2="0" y2="-36"/><line x1="0" y1="-22" x2="12" y2="-15"/><line x1="0" y1="-22" x2="-12" y2="-15"/></g><circle cx="0" cy="4" r="3.4" fill="#DE9A2B"/><text x="10" y="10" font-family="IBM Plex Mono" font-size="10" fill="#5C6F66">WT-04</text></g>
+        <g class="turbine t5" transform="translate(470,180)"><line x1="0" y1="0" x2="0" y2="-22" stroke="#0D2B22" stroke-width="2.4"/><g stroke="#0D2B22" stroke-width="2.2" stroke-linecap="round"><line x1="0" y1="-22" x2="0" y2="-36"/><line x1="0" y1="-22" x2="12" y2="-15"/><line x1="0" y1="-22" x2="-12" y2="-15"/></g><circle cx="0" cy="4" r="3.4" fill="#DE9A2B"/><text x="10" y="10" font-family="IBM Plex Mono" font-size="10" fill="#5C6F66">WT-05</text></g>
+        <!-- substation -->
+        <g class="turbine t5" transform="translate(495,158)"><rect x="-8" y="-8" width="16" height="16" fill="none" stroke="#DE9A2B" stroke-width="2"/><text x="-8" y="-14" font-family="IBM Plex Mono" font-size="10" fill="#5C6F66">升压站</text></g>
+      </svg>
+      <span class="map-coord mc-tl">N 40°12′ / E 106°48′</span>
+      <span class="map-coord mc-br">比例尺 1:25000 · CGCS2000</span>
+      <span class="map-tag">SITE-DEMO · 山地风场</span>
+      <div class="scorecard" aria-hidden="true">
+        <h5>AI 选址评分</h5>
+        <div class="row"><span>风资源指数</span><b>8.6 / 10</b></div>
+        <div class="row"><span>地形适建性</span><b>7.9 / 10</b></div>
+        <div class="row"><span>接入距离</span><b>4.2 km</b></div>
+        <div class="row"><span>生态红线</span><b class="ok">✓ 合规</b></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= POSITION ================= -->
+<section id="position">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Positioning · 空间层</div>
+      <h2>我们只做空间层，<br>并把它做到极致</h2>
+      <p>场站在哪里、长什么样、怎么管理——这是 SkyField 的全部，也是 SCADA 系统与主机厂工具没有覆盖的一层。</p>
+    </div>
+    <div class="pos-grid">
+      <div class="layers reveal">
+        <div class="layer">
+          <div><h4>运营分析层</h4><p>功率曲线 · 故障预测 · 发电量分析——由 SCADA 与主机厂工具承担</p></div>
+          <span>SCADA / OEM</span>
+        </div>
+        <div class="layer hot">
+          <div><h4>空间层 · SkyField</h4><p>选址分析 · 建设可视化 · 三维资产台账 · 巡检航线 · 竣工数字档案</p></div>
+          <span>SKYFIELD</span>
+        </div>
+        <div class="layer">
+          <div><h4>数据采集层</h4><p>倾斜摄影 · 激光点云 · BIM · 卫星影像 · 无人机采集——多源接入，统一建库</p></div>
+          <span>MULTI-SOURCE</span>
+        </div>
+      </div>
+      <div class="pos-copy reveal">
+        <h3>边界清晰，才值得信任</h3>
+        <p>SkyField 不替代您已投入的 SCADA 系统，不与主机厂的运营分析工具竞争。我们与它们互补：把分散在图纸、Excel 与个人电脑里的空间信息，收敛为一份可持续更新的场站空间资产。</p>
+        <div class="pt">
+          <svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8" fill="none" stroke="#DE9A2B" stroke-width="2"/><path d="M5.5 9.2 8 11.6 12.8 6.4" fill="none" stroke="#DE9A2B" stroke-width="2" stroke-linecap="round"/></svg>
+          <div><b>多主机厂混装场站的唯一选择</b><p>主机厂工具只服务自家设备。SkyField 与设备品牌无关，一张图统一管理全部资产。</p></div>
+        </div>
+        <div class="pt">
+          <svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8" fill="none" stroke="#DE9A2B" stroke-width="2"/><path d="M5.5 9.2 8 11.6 12.8 6.4" fill="none" stroke="#DE9A2B" stroke-width="2" stroke-linecap="round"/></svg>
+          <div><b>空间数据一次建库，全生命周期复用</b><p>选址阶段的地形建库直接进入建设与运维阶段，数据资产随场站生命周期持续增值。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MODULES ================= -->
+<section class="mods" id="modules">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Products · 四个模块</div>
+      <h2>沿场站生命周期展开的四个模块</h2>
+      <p>模块可独立采购。选址阶段产生的空间数据资产是后续所有模块的输入——买得越早，复用越多。</p>
+    </div>
+    <div class="mod-grid">
+
+      <article class="mod first reveal">
+        <span class="flag">首单推荐</span>
+        <span class="mod-phase">开发期</span>
+        <h3>选址分析<small>SKYFIELD · SITE</small></h3>
+        <p class="mod-desc">用真实地形数据回答"这里能不能建、建多少、怎么接入"。30 天内出具可提交评审的完整选址报告。</p>
+        <ul>
+          <li>GIS 大地形建库与坡度、坡向、高程分析</li>
+          <li>内置风光资源评估模型，AI 辅助选址评分</li>
+          <li>障碍物、噪声、阴影影响半径自动计算</li>
+          <li>电网接入路径规划与线路优化</li>
+          <li>土地利用与生态红线叠加合规评估</li>
+          <li>选址报告一键生成，支持 PDF 导出</li>
+        </ul>
+        <div class="mod-foot">
+          <span class="price">License 买断 · <b>15–30 万</b> / 场站</span>
+          <a href="#demo">预约演示 →</a>
+        </div>
+      </article>
+
+      <article class="mod reveal">
+        <span class="mod-phase">建设期</span>
+        <h3>建设可视化<small>SKYFIELD · BUILD</small></h3>
+        <p class="mod-desc">让融资方、甲方与项目部看到同一个正在生长的场站。竣工时交付的不是图纸包，而是数字资产。</p>
+        <ul>
+          <li>3D 施工进度跟踪与多阶段对比</li>
+          <li>塔吊与大件吊装方案仿真、碰撞检测</li>
+          <li>融资与业主汇报可视化材料自动生成</li>
+          <li>竣工数字化交付档案，替代 PDF 图纸包</li>
+          <li>BIM 与倾斜摄影多源数据融合</li>
+          <li>施工影像自动关联空间坐标归档</li>
+        </ul>
+        <div class="mod-foot">
+          <span class="price">License 买断 · <b>30–60 万</b> / 项目</span>
+          <a href="#demo">了解 EPC 方案 →</a>
+        </div>
+      </article>
+
+      <article class="mod reveal">
+        <span class="mod-phase">运营期</span>
+        <h3>运维空间台账<small>SKYFIELD · OPS</small></h3>
+        <p class="mod-desc">多场站集群的统一三维资产账本。数据在您的服务器上持续更新，不出场站一步。</p>
+        <ul>
+          <li>设备、线路、基础设施三维资产台账</li>
+          <li>无人机巡检航线自动规划与路径导出</li>
+          <li>运维工单空间可视化与历史追溯</li>
+          <li>多场站统一 GIS 管理视图与对比分析</li>
+          <li>资产变更记录与版本管理</li>
+          <li>私有化部署，数据不出场站</li>
+        </ul>
+        <div class="mod-foot">
+          <span class="price">年度订阅 · <b>20–40 万</b> / 年 / 场站集群</span>
+          <a href="#demo">申请集群试用 →</a>
+        </div>
+      </article>
+
+      <article class="mod reveal">
+        <span class="mod-phase">海外场站</span>
+        <h3>VR 运维培训<small>SKYFIELD · TRAIN</small></h3>
+        <p class="mod-desc">基于竣工数字资产生成的本地化工人培训场景，已随中国新能源企业在中东、中亚项目交付。</p>
+        <ul>
+          <li>海外本地化工人上岗仿真培训</li>
+          <li>运维操作规程虚拟演练，可无限次重复</li>
+          <li>培训记录存档与考核评分体系</li>
+          <li>复用建设可视化模块的竣工数字资产</li>
+          <li>中 / 英 / 阿拉伯语三语界面已就绪</li>
+          <li>培训场景包可按项目定制扩展</li>
+        </ul>
+        <div class="mod-foot">
+          <span class="price">场景包 · <b>20–50 万</b>（与建设模块联购）</span>
+          <a href="#global">海外交付案例 →</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="flow-note reveal">
+      <b>推荐采购路径：</b>从选址分析起步——最快出结果、决策链最短。选址建库的空间数据在建设与运维模块中持续复用，运维台账的年度订阅让空间资产随场站生命周期同步生长。
+    </div>
+  </div>
+</section>
+
+<!-- ================= TECH STACK ================= -->
+<section class="dark tech" id="tech">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Platform · 技术底座</div>
+      <h2>SkyWorld 平台：十年打磨的<br>GIS × 游戏引擎融合底座</h2>
+      <p>一条自下而上的数据流水线：多源数据入库，汇入双引擎融合内核，经 AI 增强后从任意终端交付——整条链路封装在一套信创合规的私有化运行底座之内。</p>
+    </div>
+    <div class="read-hint reveal">
+      <svg width="14" height="18" viewBox="0 0 14 18" fill="none"><path d="M7 16 V3 M7 3 L2.5 7.5 M7 3 L11.5 7.5" stroke="#7FD6A4" stroke-width="1.6" stroke-linecap="round"/></svg>
+      自下而上阅读 · 数据的旅程 = 平台的架构
+    </div>
+
+    <div class="arch" id="arch">
+      <div class="pipes" aria-hidden="true">
+        <div class="pipe p1"><span class="dot"></span><span class="dot d2"></span></div>
+        <div class="pipe p2"><span class="dot"></span><span class="dot d2"></span></div>
+        <div class="pipe p3"><span class="dot"></span><span class="dot d2"></span></div>
+      </div>
+
+      <!-- ▲ consumers -->
+      <div class="consumers pw" data-step="6">
+        <div class="clabel">▲ 数据的终点 · 产品与业务</div>
+        <div class="cchips">
+          <span class="cchip">选址分析</span>
+          <span class="cchip">建设可视化</span>
+          <span class="cchip">运维空间台账</span>
+          <span class="cchip">VR 运维培训</span>
+          <span class="cchip ghost"><b>SafeSim 安仿</b> · 共享同一底座</span>
+        </div>
+      </div>
+
+      <div class="conn pw" data-step="5" aria-hidden="true">
+        <svg viewBox="0 0 60 38"><path d="M30 34 V8 M30 8 L24 15 M30 8 L36 15"/></svg>
+      </div>
+
+      <!-- ▣ sovereign frame -->
+      <div class="frame">
+        <div class="frame-label pw" data-step="0">私有化部署 × 信创运行底座</div>
+        <p class="frame-note pw" data-step="0">以下所有能力，均可完整运行在您的场站服务器与国产化环境中 · 数据不出域 · 7 天上线</p>
+
+        <div class="stack">
+
+          <!-- L4 access -->
+          <div class="lrow pw" data-step="4">
+            <div class="lmark"><b>L4</b>交付层</div>
+            <div class="lname">
+              <div class="lico"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="#DE9A2B" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><ellipse cx="11" cy="11" rx="3.5" ry="8"/><path d="M3.5 11 h15"/></svg></div>
+              <h4>WebGL / VR 接入层<small>ACCESS ANYWHERE</small></h4>
+            </div>
+            <div class="ldesc">
+              同一份空间数据，管理层在浏览器免插件查看，工人戴上 VR 头显演练，指挥中心投上大屏——终端不同，数据同源。
+              <div class="lchips"><span class="lchip">浏览器免插件</span><span class="lchip">主流 VR 头显</span><span class="lchip">平板巡检端</span><span class="lchip">大屏指挥中心</span></div>
+            </div>
+          </div>
+
+          <!-- L3 AI -->
+          <div class="lrow pw" data-step="3">
+            <div class="lmark"><b>L3</b>智能层</div>
+            <div class="lname">
+              <div class="lico"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="#DE9A2B" stroke-width="1.6"><path d="M11 3 v3 M11 16 v3 M3 11 h3 M16 11 h3"/><circle cx="11" cy="11" r="4.5"/><circle cx="11" cy="11" r="1.4" fill="#DE9A2B" stroke="none"/></svg></div>
+              <h4>AI 辅助空间分析<small>AI-ASSISTED ANALYSIS</small></h4>
+            </div>
+            <div class="ldesc">
+              在融合内核之上做"会思考"的分析：给候选场址打分、替工程师规划航线、把结果写成报告——重复劳动交给模型。
+              <div class="lchips"><span class="lchip">风光资源评估模型</span><span class="lchip">AI 选址评分</span><span class="lchip">巡检航线自动规划</span><span class="lchip">报告自动生成</span></div>
+            </div>
+          </div>
+
+          <!-- L2 fusion core (signature) -->
+          <div class="core pw" data-step="2">
+            <div class="core-tag"><b>L2</b>融合内核 · FUSION CORE</div>
+            <div class="core-grid">
+              <div class="core-half l">
+                <h4>GIS 空间数据引擎<small>TERRAIN &amp; GEODATA</small></h4>
+                <p>省级尺度大地形建库 · 多坐标系统与投影 · 瓦片化调度——公里级选址到厘米级设备定位，无级缩放。</p>
+              </div>
+              <div class="emblem" aria-hidden="true">
+                <span class="ring"></span><span class="ring2"></span>
+                <span class="disc"><span class="x">×</span></span>
+              </div>
+              <div class="core-half r">
+                <h4>游戏引擎级渲染管线<small>REAL-TIME RENDERING</small></h4>
+                <p>PBR 物理材质 · 实时全局光影 · 大场景 LOD 与粒子系统——融资汇报级画质，普通工作站实时运行。</p>
+              </div>
+            </div>
+            <p class="core-foot">两台引擎共用同一份空间数据、同一个坐标系统——<b>这个"×"是国内罕有对标的能力组合</b>，也是 SkyField 一切模块的心脏。</p>
+          </div>
+
+          <!-- L1 data fusion -->
+          <div class="lrow pw" data-step="1">
+            <div class="lmark"><b>L1</b>数据层</div>
+            <div class="lname">
+              <div class="lico"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="#DE9A2B" stroke-width="1.6"><path d="M11 2 L19 6.5 V15.5 L11 20 L3 15.5 V6.5 Z"/><path d="M11 2 V11 M11 11 L19 6.5 M11 11 L3 6.5"/></svg></div>
+              <h4>多源数据融合建库<small>DATA FUSION</small></h4>
+            </div>
+            <div class="ldesc">
+              五种来源、一套建库标准。数据在此完成清洗、配准与统一坐标——一次入库，选址、建设、运维三个阶段全程复用。
+              <div class="lchips"><span class="lchip">自动配准</span><span class="lchip">统一坐标</span><span class="lchip">版本管理</span><span class="lchip">增量更新</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="frame-edge pw" data-step="0">
+          <span class="echip hl">x86_64</span><span class="echip hl">ARM 鲲鹏/飞腾</span><span class="echip hl">MIPS 龙芯</span><span class="echip hl">SW-64 申威</span>
+          <span class="echip">统信 UOS</span><span class="echip">麒麟 OS</span><span class="echip">鸿蒙适配</span><span class="echip">离线单机（海外）</span>
+        </div>
+      </div>
+
+      <div class="conn pw" data-step="0" aria-hidden="true">
+        <svg viewBox="0 0 60 38"><path d="M30 34 V8 M30 8 L24 15 M30 8 L36 15"/></svg>
+      </div>
+
+      <!-- ▼ data sources -->
+      <div class="sources pw" data-step="0">
+        <div class="clabel">● 数据的起点 · 多源采集</div>
+        <div class="schips">
+          <span class="schip">倾斜摄影<small>OSGB</small></span>
+          <span class="schip">激光点云<small>LAS/LAZ</small></span>
+          <span class="schip">BIM 模型<small>IFC/RVT</small></span>
+          <span class="schip">卫星影像<small>GeoTIFF</small></span>
+          <span class="schip">矢量数据<small>SHP/GDB</small></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <div class="tk pw" data-step="7"><b>为什么快</b><span>数据只建一次库。选址阶段的地形资产直通建设与运维，不做重复采集与转换。</span></div>
+      <div class="tk pw" data-step="7"><b>为什么稳</b><span>底座经国防级项目十年验证后才进入新能源行业——SkyField 站在成熟平台上，而非从零搭建。</span></div>
+      <div class="tk pw" data-step="7"><b>为什么合规</b><span>整条流水线封装在信创兼容的私有化环境里，从数据入库到 VR 交付，全程不出您的服务器。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARE ================= -->
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Why SkyField · 对比</div>
+      <h2>这个精确细分上，<br>没有第二个同样的选择</h2>
+      <p>国际平台缺本地服务与信创合规，主机厂工具不做空间层，通用 GIS 缺行业纵深。SkyField 是三者之间那块空白的答案。</p>
+    </div>
+    <div class="cmp-scroll reveal">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col" class="me">SkyField 天域场</th>
+            <th scope="col">国际数字孪生平台</th>
+            <th scope="col">主机厂内置工具</th>
+            <th scope="col">通用 GIS 平台</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">游戏引擎级视觉</th>
+            <td class="me"><span class="yes">✓</span> 十年引擎积累</td>
+            <td><span class="no">✗</span> 工程视图为主</td>
+            <td><span class="no">✗</span> 图表与曲线</td>
+            <td><span class="no">✗</span> 平面制图为主</td>
+          </tr>
+          <tr>
+            <th scope="row">新能源垂直功能</th>
+            <td class="me"><span class="yes">✓</span> 选址 → 运维全链路</td>
+            <td>通用工业，需重度定制</td>
+            <td>仅运营分析层</td>
+            <td><span class="no">✗</span> 卖平台不卖方案</td>
+          </tr>
+          <tr>
+            <th scope="row">设备品牌中立</th>
+            <td class="me"><span class="yes">✓</span> 混装场站统一管理</td>
+            <td><span class="yes">✓</span></td>
+            <td><span class="no">✗</span> 仅自家设备</td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <th scope="row">私有化 + 信创合规</th>
+            <td class="me"><span class="yes">✓</span> 国产 CPU 全架构</td>
+            <td><span class="no">✗</span> 云优先，不支持信创</td>
+            <td>部分支持</td>
+            <td>部分支持</td>
+          </tr>
+          <tr>
+            <th scope="row">中文界面与本地服务</th>
+            <td class="me"><span class="yes">✓</span> 中 / 英 / 阿三语</td>
+            <td>中文支持弱，响应以周计</td>
+            <td><span class="yes">✓</span></td>
+            <td><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <th scope="row">一带一路项目服务</th>
+            <td class="me"><span class="yes">✓</span> 随中国团队随行交付</td>
+            <td>BRI 市场几乎无本地团队</td>
+            <td>随设备出口，仅运营层</td>
+            <td><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <th scope="row">整体拥有成本</th>
+            <td class="me">模块化定价，价格公示</td>
+            <td>约为 SkyField 3–5 倍</td>
+            <td>捆绑于设备采购</td>
+            <td>平台费 + 大量二次开发</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">* 对比基于公开信息与项目投标场景整理，2026-06。</p>
+  </div>
+</section>
+
+<!-- ================= GLOBAL / BRI ================= -->
+<section class="bri" id="global">
+  <div class="wrap bri-grid">
+    <div class="reveal">
+      <div class="sec-eyebrow">Global · 出海</div>
+      <h2>中国新能源出海，<br>空间平台随行</h2>
+      <p style="margin-top:18px;color:var(--text-dim)">中国风机与光伏组件正销往 60 多个国家。SkyField 随中国运营商与 EPC 团队进入中东、中亚与东南亚项目现场——用中国工程团队熟悉的平台，满足项目所在国的数据主权要求。</p>
+      <div class="bri-points">
+        <div class="bp"><span class="n">01</span><div><b>数据主权合规</b><p>完全离线的本地部署方案，项目数据留在东道国境内——这是云优先的西方平台做不到的承诺。</p></div></div>
+        <div class="bp"><span class="n">02</span><div><b>三语界面已就绪</b><p>中文服务中国团队，英语与阿拉伯语界面服务本地业主与监理，同一份数据无缝切换。</p></div></div>
+        <div class="bp"><span class="n">03</span><div><b>本地化培训交付</b><p>VR 运维培训模块已在中东、中亚项目落地，帮助本地工人在虚拟场站中完成上岗训练。</p></div></div>
+      </div>
+    </div>
+    <div class="route-map reveal" role="img" aria-label="一带一路交付路线示意图：从中国延伸至乌兹别克斯坦、沙特与越南的项目节点">
+      <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- stylized landmass blobs -->
+        <path class="rm-land" d="M330,90 C380,75 440,85 470,115 C495,140 490,185 465,205 C440,225 400,215 380,235 C360,255 330,250 315,230 C295,205 290,160 305,130 C312,112 318,96 330,90 Z"/>
+        <path class="rm-land" d="M180,140 C220,125 265,135 280,165 C292,190 280,215 255,225 C230,235 195,228 180,205 C168,186 165,158 180,140 Z"/>
+        <path class="rm-land" d="M60,190 C100,170 150,180 165,210 C178,235 165,268 135,278 C105,288 68,275 55,248 C45,226 45,203 60,190 Z"/>
+        <path class="rm-land" d="M300,270 C330,260 360,270 368,292 C375,312 362,332 338,336 C315,340 292,328 288,306 C285,290 288,276 300,270 Z"/>
+        <!-- route lines -->
+        <path class="rm-line" d="M420,150 C360,140 300,160 235,185"/>
+        <path class="rm-line" d="M420,150 C370,190 330,230 335,300"/>
+        <path class="rm-line" d="M235,185 C185,200 140,215 105,235"/>
+        <!-- nodes -->
+        <g><circle class="rm-city" cx="420" cy="150" r="5"/><circle cx="420" cy="150" r="10" fill="none" stroke="#DE9A2B" stroke-width="1" opacity=".4"/><text class="rm-label" x="432" y="146">中国 · 总部与研发</text></g>
+        <g><circle class="rm-city" cx="235" cy="185" r="4"/><text class="rm-label" x="200" y="172">乌兹别克斯坦 · 光伏</text></g>
+        <g><circle class="rm-city" cx="105" cy="235" r="4"/><text class="rm-label" x="60" y="222">沙特 · 风电 + 培训</text></g>
+        <g><circle class="rm-city" cx="335" cy="300" r="4"/><text class="rm-label" x="347" y="304">越南 · 海上风电前期</text></g>
+        <text class="rm-label" x="20" y="382" opacity=".6">示意图 · 随中国新能源企业交付的重点区域 · 2026</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta" id="demo">
+  <svg class="contour-bg" viewBox="0 0 1440 420" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,340 C240,300 380,360 640,320 C900,280 1040,340 1440,290" fill="none" stroke="#7FD6A4" stroke-width="1.2"/>
+    <path d="M0,280 C260,235 420,300 680,255 C940,212 1100,275 1440,225" fill="none" stroke="#7FD6A4" stroke-width="1.2"/>
+    <path d="M0,215 C280,168 460,235 720,188 C980,142 1160,205 1440,158" fill="none" stroke="#7FD6A4" stroke-width="1.2"/>
+    <path d="M0,150 C300,102 500,168 760,122 C1020,78 1220,138 1440,92" fill="none" stroke="#7FD6A4" stroke-width="1.2"/>
+  </svg>
+  <div class="wrap">
+    <h2>拿一个真实场站的数据来，<br>看结果再决定</h2>
+    <p>提供任一目标场址的坐标范围，我们用 SkyField 完成一次真实的选址分析演示。您评估的不是 PPT，而是您自己场站的分析结果。</p>
+    <a class="btn btn-gold" href="mailto:skyfield@skyworld.example" style="font-size:16px;padding:14px 40px">预约选址演示</a>
+    <a class="btn btn-line-inv" href="#modules" style="font-size:16px;padding:14px 32px;margin-left:12px">下载产品手册</a>
+    <div class="mono-line">DEMO 周期 ≈ 2 周 · 私有化 POC 部署 7 天上线 · 全程签署保密协议</div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top" style="filter:brightness(1.15)">
+          <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <rect x="1" y="1" width="38" height="38" rx="4" fill="#123A2E"/>
+            <path d="M6 28 C12 24 14 18 20 16 C26 14 28 10 34 8" fill="none" stroke="#DE9A2B" stroke-width="2"/>
+            <path d="M6 33 C13 30 16 24 22 22 C28 20 30 16 34 14" fill="none" stroke="#7FD6A4" stroke-width="1.4" opacity=".7"/>
+            <circle cx="20" cy="16" r="2.6" fill="#DE9A2B"/>
+          </svg>
+          <span class="logo-txt" style="color:#fff">天域场<small>SKYFIELD</small></span>
+        </a>
+        <p>SkyField 天域场是天域世界（SkyWorld）旗下新能源空间智能品牌。天域世界成立于 2016 年，GIS 与游戏引擎融合平台已服务国防、能源、政务等领域逾百家机构。</p>
+      </div>
+      <div>
+        <h5>产品</h5>
+        <a href="#modules">选址分析</a>
+        <a href="#modules">建设可视化</a>
+        <a href="#modules">运维空间台账</a>
+        <a href="#modules">VR 运维培训</a>
+      </div>
+      <div>
+        <h5>平台</h5>
+        <a href="#tech">SkyWorld 技术底座</a>
+        <a href="#tech">信创兼容矩阵</a>
+        <a href="#compare">竞争对比</a>
+        <a href="#global">海外交付</a>
+      </div>
+      <div>
+        <h5>天域世界</h5>
+        <a href="#top">关于我们</a>
+        <a href="#top">SafeSim 安仿 · 工业安全合规仿真 ↗</a>
+        <a href="#demo">联系商务</a>
+        <a href="#demo">成为渠道伙伴</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 天域世界 SKYWORLD · SKYFIELD 天域场</span>
+      <span>N 39°54′ / E 116°23′ · MADE FOR THE FIELD</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// scroll reveal
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// tech architecture: power-on sequence, layers light up bottom-up
+const arch = document.getElementById('arch');
+if (arch){
+  const steps = document.querySelectorAll('.pw');
+  const io2 = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      io2.disconnect();
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      steps.forEach(el=>{
+        const d = reduced ? 0 : (+el.dataset.step) * 320;
+        setTimeout(()=>el.classList.add('on'), d);
+      });
+    });
+  },{threshold:.18});
+  io2.observe(arch);
+}
+</script>
+</body>
+</html>
