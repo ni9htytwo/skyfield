@@ -29,7 +29,7 @@
   --maxw:1180px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:var(--sans);background:var(--paper);color:var(--text);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img,svg{display:block}
@@ -56,9 +56,14 @@ img,svg{display:block}
 .btn-line-inv{border-color:var(--text-inv-dim);color:var(--text-inv)}
 .btn-line-inv:hover{border-color:var(--gold);color:var(--gold)}
 .nav .btn{padding:9px 20px}
-.nav-links a.btn-solid{color:var(--paper)}
-.nav-links a.btn-solid:hover{color:var(--paper)}
-.nav-toggle{display:none}
+.nav a.btn-solid{color:var(--paper)}
+.nav a.btn-solid:hover{color:var(--paper)}
+.nav-right{display:flex;align-items:center;gap:34px}
+.nav-toggle{display:none;width:44px;height:44px;border:1px solid var(--contour);border-radius:4px;background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.25s}
+.nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav.open .nav-toggle span:nth-child(2){opacity:0}
+.nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ---------- HERO ---------- */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--contour)}
@@ -285,12 +290,14 @@ h2{font-family:var(--serif);font-weight:900;font-size:clamp(28px,3.2vw,40px);lin
 }
 
 /* ---------- COMPARE ---------- */
-.cmp-scroll{overflow-x:auto;border:1px solid var(--contour);border-radius:6px;background:#fff}
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--contour);border-radius:6px;background:#fff}
 table{width:100%;border-collapse:collapse;min-width:820px}
 th,td{padding:16px 20px;text-align:left;font-size:14px;border-bottom:1px solid var(--contour);vertical-align:top}
 thead th{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;font-weight:600;color:var(--text-dim);background:var(--paper-2);text-transform:uppercase}
 thead th.me{background:var(--ink);color:var(--gold)}
-tbody th{font-weight:700;color:var(--ink);font-size:14.5px;width:170px}
+thead th:first-child{position:sticky;left:0;z-index:2;background:var(--paper-2)}
+tbody th{font-weight:700;color:var(--ink);font-size:14.5px;width:170px;position:sticky;left:0;z-index:1;background:#fff;box-shadow:1px 0 0 var(--contour)}
+.swipe-hint{display:none;font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:10px}
 td.me{background:rgba(222,154,43,.09);font-weight:500;color:var(--ink)}
 tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
 .yes{color:var(--moss);font-weight:700}
@@ -329,13 +336,14 @@ tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
 .cta .wrap{position:relative;z-index:2;text-align:center;max-width:760px}
 .cta h2{color:#fff;margin-bottom:18px}
 .cta p{color:var(--text-inv-dim);font-size:17px;margin-bottom:34px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 .cta .mono-line{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--gold);margin-top:30px}
 
 /* ---------- FOOTER ---------- */
 footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-size:14px}
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:44px;margin-bottom:44px}
 .foot-grid h5{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:16px;font-weight:600}
-.foot-grid a{display:block;padding:4px 0;color:var(--text-inv-dim)}
+.foot-grid a{display:block;padding:9px 0;color:var(--text-inv-dim)}
 .foot-grid a:hover{color:#fff}
 .foot-brand p{margin-top:14px;font-size:13px;line-height:1.8;max-width:300px}
 .foot-bottom{border-top:1px solid #123A2E;padding-top:24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;letter-spacing:1px}
@@ -359,11 +367,19 @@ footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-siz
     linear-gradient(180deg,var(--paper) 0%,var(--paper) 22%,rgba(243,245,240,.9) 38%,rgba(243,245,240,.55) 55%,rgba(243,245,240,.2) 72%,rgba(243,245,240,.65) 100%)}
 }
 @media (max-width:720px){
-  .nav-links{display:none}
+  .nav-right{gap:10px}
+  .nav-toggle{display:flex}
+  .nav .btn{padding:9px 14px;font-size:13.5px}
+  .nav-links{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;gap:0;background:rgba(243,245,240,.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--contour);box-shadow:0 18px 40px -24px rgba(13,43,34,.35);padding:8px 22px 14px}
+  .nav.open .nav-links{display:flex}
+  .nav-links a{font-size:16px;padding:14px 0;border-bottom:1px solid var(--contour)}
+  .nav-links a:last-child{border-bottom:0}
+  .nav-links a:hover{border-color:var(--contour)}
   .mod-grid{grid-template-columns:1fr}
   section{padding:68px 0}
   .wrap{padding:0 22px}
   .hero-in{padding:56px 0 60px}
+  .swipe-hint{display:block}
 }
 </style>
 </head>
@@ -381,13 +397,18 @@ footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-siz
       </svg>
       <span class="logo-txt">天域场<small>SKYFIELD</small></span>
     </a>
-    <div class="nav-links">
-      <a href="#position">空间层定位</a>
-      <a href="#modules">产品模块</a>
-      <a href="#tech">技术平台</a>
-      <a href="#compare">对比</a>
-      <a href="#global">海外交付</a>
+    <div class="nav-right">
+      <div class="nav-links" id="navlinks">
+        <a href="#position">空间层定位</a>
+        <a href="#modules">产品模块</a>
+        <a href="#tech">技术平台</a>
+        <a href="#compare">对比</a>
+        <a href="#global">海外交付</a>
+      </div>
       <a class="btn btn-solid" href="#demo">预约选址演示</a>
+      <button class="nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="navlinks">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
@@ -466,7 +487,7 @@ footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-siz
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="sec-eyebrow">Positioning · 空间层</div>
-      <h2>天域只做空间层，<br>并把它做到极致</h2>
+      <h2>我们只做空间层，<br>并把它做到极致</h2>
       <p>场站在哪里、长什么样、怎么管理——这是 SkyField 的全部，也是 SCADA 系统与主机厂工具没有覆盖的一层。</p>
     </div>
     <div class="pos-grid">
@@ -732,6 +753,7 @@ footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-siz
       <h2>这个精确细分上，<br>没有第二个同样的选择</h2>
       <p>国际平台缺本地服务与信创合规，主机厂工具不做空间层，通用 GIS 缺行业纵深。SkyField 是三者之间那块空白的答案。</p>
     </div>
+    <p class="swipe-hint">← 左右滑动查看完整对比 →</p>
     <div class="cmp-scroll reveal">
       <table>
         <thead>
@@ -846,8 +868,10 @@ footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-siz
   <div class="wrap">
     <h2>拿一个真实场站的数据来，<br>看结果再决定</h2>
     <p>提供任一目标场址的坐标范围，我们用 SkyField 完成一次真实的选址分析演示。您评估的不是 PPT，而是您自己场站的分析结果。</p>
-    <a class="btn btn-gold" href="mailto:skyfield@skyworld.example" style="font-size:16px;padding:14px 40px">预约选址演示</a>
-    <a class="btn btn-line-inv" href="#modules" style="font-size:16px;padding:14px 32px;margin-left:12px">下载产品手册</a>
+    <div class="cta-btns">
+      <a class="btn btn-gold" href="mailto:skyfield@skyworld.example" style="font-size:16px;padding:14px 40px">预约选址演示</a>
+      <a class="btn btn-line-inv" href="#modules" style="font-size:16px;padding:14px 32px">下载产品手册</a>
+    </div>
     <div class="mono-line">DEMO 周期 ≈ 2 周 · 私有化 POC 部署 7 天上线 · 全程签署保密协议</div>
   </div>
 </section>
@@ -898,6 +922,24 @@ footer{background:#08201A;color:var(--text-inv-dim);padding:64px 0 36px;font-siz
 </footer>
 
 <script>
+// mobile nav toggle
+const nav = document.querySelector('.nav');
+const navToggle = document.querySelector('.nav-toggle');
+if (nav && navToggle){
+  navToggle.addEventListener('click', ()=>{
+    const open = nav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+    navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      nav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded','false');
+      navToggle.setAttribute('aria-label','打开菜单');
+    });
+  });
+}
+
 // scroll reveal
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target);} });
